@@ -73,7 +73,7 @@ public class WavFileWriter extends InputStream {
     DoubleMap panMap = new DoubleMap(0.0);
     panMap.putSecondValue(3.0, 1.0);
 
-    create(new Panner(
+    WavFileWriter.create(new Panner(
       new OscillatorReader(new SineOscillator(), freqMap, 3), panMap), new File("wav/panned.wav"));
   }
 
