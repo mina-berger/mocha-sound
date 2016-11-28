@@ -16,7 +16,7 @@ public class OscillatorReader implements SoundReadable {
 
   @Override
   public long length() {
-    return (long) (WavFileWriter.SAMPLE_RATE * CHANNELS * seconds);
+    return (long) (SAMPLE_RATE * CHANNELS * seconds);
   }
 
   @Override

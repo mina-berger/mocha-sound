@@ -6,7 +6,7 @@ public class SineOscillator implements Oscillatable {
   double delta_t;
 
   public SineOscillator() {
-    this(WavFileWriter.SAMPLE_RATE);
+    this(SAMPLE_RATE);
   }
 
   public SineOscillator(double sample_rate) {

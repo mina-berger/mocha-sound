@@ -6,7 +6,7 @@ public class SquareOscillator implements Oscillatable {
   double delta_t;
 
   public SquareOscillator() {
-    this(WavFileWriter.SAMPLE_RATE);
+    this(SAMPLE_RATE);
   }
 
   public SquareOscillator(double sample_rate) {

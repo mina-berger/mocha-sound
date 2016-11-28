@@ -10,9 +10,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-public class WavFileWriter extends InputStream {
-
-  public static final float SAMPLE_RATE = 48000;
+public class WavFileWriter extends InputStream implements SoundConstants{
 
   boolean signed = true;
   boolean big_endian = true;
@@ -67,14 +65,6 @@ public class WavFileWriter extends InputStream {
     System.out.println("wav file:" + wavFile.getAbsolutePath());
   }
 
-  public static void main(String[] arg) throws IOException {
-    DoubleMap freqMap = new DoubleMap(440.0);
-    freqMap.putSecondValue(2.0, 880.0);
-    DoubleMap panMap = new DoubleMap(0.0);
-    panMap.putSecondValue(3.0, 1.0);
 
-    WavFileWriter.create(new Panner(
-      new OscillatorReader(new SineOscillator(), freqMap, 3), panMap), new File("wav/panned.wav"));
-  }
 
 }

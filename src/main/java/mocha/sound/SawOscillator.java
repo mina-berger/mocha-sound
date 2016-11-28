@@ -6,7 +6,7 @@ public class SawOscillator implements Oscillatable {
   double delta_t;
 
   public SawOscillator() {
-    this(WavFileWriter.SAMPLE_RATE);
+    this(SAMPLE_RATE);
   }
 
   public SawOscillator(double sample_rate) {

@@ -1,6 +1,6 @@
 package mocha.sound;
 
-public interface SoundReadable {
+public interface SoundReadable extends SoundConstants {
 
   public long length();
 

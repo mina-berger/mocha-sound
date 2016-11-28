@@ -3,13 +3,13 @@ package mocha.sound;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class DoubleMap extends TreeMap<Long, Double> {
+public class DoubleMap extends TreeMap<Long, Double> implements SoundConstants{
 
   double sampleRate;
   long index;
 
   public DoubleMap(double initialValue) {
-    this(WavFileWriter.SAMPLE_RATE, initialValue);
+    this(SAMPLE_RATE, initialValue);
   }
 
   public DoubleMap(double sampleRate, double initialValue) {

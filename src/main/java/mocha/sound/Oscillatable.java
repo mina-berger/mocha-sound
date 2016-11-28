@@ -1,6 +1,6 @@
 package mocha.sound;
 
-public interface Oscillatable {
+public interface Oscillatable extends SoundConstants {
 
   public double read(double freq, double volume);
 }

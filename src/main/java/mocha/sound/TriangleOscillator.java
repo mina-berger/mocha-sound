@@ -6,7 +6,7 @@ public class TriangleOscillator implements Oscillatable {
   double delta_t;
 
   public TriangleOscillator() {
-    this(WavFileWriter.SAMPLE_RATE);
+    this(SAMPLE_RATE);
   }
 
   public TriangleOscillator(double sample_rate) {
