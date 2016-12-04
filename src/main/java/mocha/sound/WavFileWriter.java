@@ -19,17 +19,29 @@ public class WavFileWriter extends InputStream implements SoundConstants{
   ArrayList<Byte> list;
 
   Maximizer maximizer;
+  long index_start;
+  long index_end;
+  long index;
 
   public WavFileWriter(SoundReadable readable) throws IOException {
     list = new ArrayList<>();
     double volume = Math.pow(2, sample_size_byte * 8 - 1) - 1;
     maximizer = new Maximizer(readable, volume);
+    index_start = (long)SAMPLE_RATE * maximizer.getChannel();
+    index_end   = index_start + maximizer.length();
+    index = 0;
   }
 
   @Override
   public int read() throws IOException {
     if (list.isEmpty()) {
-      double value = maximizer.read();
+      double value;
+      if(index >= index_start && index < index_end){
+        value = maximizer.read();
+      }else{
+        value = 0;
+      }
+      index++;
       ByteBuffer buffer = ByteBuffer.allocate(8);
       buffer.putLong((long) value);
       byte[] array = buffer.array();
@@ -42,7 +54,7 @@ public class WavFileWriter extends InputStream implements SoundConstants{
   }
 
   public long length() {
-    return maximizer.length() / maximizer.getChannel();
+    return maximizer.length() / maximizer.getChannel() + (long)SAMPLE_RATE * 2;
   }
 
   public AudioFormat getFormat() {

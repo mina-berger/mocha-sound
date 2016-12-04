@@ -1,9 +1,9 @@
 package mocha.sound;
 
-public class TimeLine extends AbstractTimeLine {
+public class Played extends AbstractTimeLine {
 
-  public TimeLine() {
-    super(2);
+  public Played() {
+    super(1);
   }
 
   @Override
@@ -11,12 +11,9 @@ public class TimeLine extends AbstractTimeLine {
     int channel = readable.getChannel();
     switch (channel) {
       case 1:
-        return new Panner(readable, new DoubleMap(0.5));
-      case 2:
         return readable;
       default:
         return null;
     }
   }
-
 }
