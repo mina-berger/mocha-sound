@@ -22,10 +22,16 @@ public class Maximizer implements SoundReadable {
     DataOutputStream out = new DataOutputStream(new FileOutputStream(tempFile));
 
     double max = 0;
+    long start = System.currentTimeMillis();
+    int channel = readable.getChannel();
     for (int i = 0; i < readable.length(); i++) {
       double value = readable.read();
       max = Math.max(max, Math.abs(value));
       out.writeDouble(value);
+      if(i % (SAMPLE_RATE * channel) == 0){
+        long elapsed = (System.currentTimeMillis() - start) / 1000;
+        System.out.println("read " + (i / SAMPLE_RATE / channel) + " sec. (" + elapsed + " sec. elapsed)");
+      }
     }
     out.flush();
     out.close();
