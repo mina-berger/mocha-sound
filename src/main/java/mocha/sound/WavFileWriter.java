@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -16,7 +15,10 @@ public class WavFileWriter extends InputStream implements SoundConstants{
   boolean big_endian = true;
   int sample_size_byte = 2;
 
-  ArrayList<Byte> list;
+  //ArrayList<Byte> list;
+  //ByteBuffer byteBuffer;
+  byte[] listBuffer;
+  int listBufferIndex;
 
   Maximizer maximizer;
   long index_start;
@@ -26,17 +28,22 @@ public class WavFileWriter extends InputStream implements SoundConstants{
 
   public WavFileWriter(SoundReadable readable) throws IOException {
     start = System.currentTimeMillis();
-    list = new ArrayList<>();
+    //list = new ArrayList<>();
     double volume = Math.pow(2, sample_size_byte * 8 - 1) - 1;
     maximizer = new Maximizer(readable, volume);
     index_start = (long)SAMPLE_RATE * maximizer.getChannel();
     index_end   = index_start + maximizer.length();
     index = 0;
+    
+    //byteBuffer = ByteBuffer.allocate(8);
+    listBuffer = new byte[sample_size_byte];
+    listBufferIndex = sample_size_byte;
   }
 
   @Override
   public int read() throws IOException {
-    if (list.isEmpty()) {
+    //if (list.isEmpty()) {
+    if (listBufferIndex >= listBuffer.length) {
       double value;
       if(index >= index_start && index < index_end){
         value = maximizer.read();
@@ -47,14 +54,18 @@ public class WavFileWriter extends InputStream implements SoundConstants{
       if(index % (SAMPLE_RATE * 2) == 0){
         System.out.println("wrote " + (index / SAMPLE_RATE / 2) + " sec");
       }
-      ByteBuffer buffer = ByteBuffer.allocate(8);
-      buffer.putLong((long) value);
-      byte[] array = buffer.array();
-      for (int i = 8 - sample_size_byte; i < 8; i++) {
-        list.add(array[i]);
+      ByteBuffer byteBuffer = ByteBuffer.allocate(8);
+      byteBuffer.putLong((long) value);
+      byte[] array = byteBuffer.array();
+      //for (int i = 8 - sample_size_byte; i < 8; i++) {
+        //list.add(array[i]);
+      for (int i = 0; i < sample_size_byte; i++) {
+        listBuffer[i] = array[i - sample_size_byte + 8];
       }
+      listBufferIndex = 0;
     }
-    int ret = Byte.toUnsignedInt(list.remove(0));
+    int ret = Byte.toUnsignedInt(listBuffer[listBufferIndex++]);
+    //System.out.println("wav:" + ret);
     return ret;
   }
 

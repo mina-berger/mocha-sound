@@ -1,12 +1,11 @@
 package mocha.sound;
 
-import java.util.ArrayList;
-
 public class Panner implements SoundReadable {
 
   SoundReadable readable;
   DoubleMap panMap;
-  ArrayList<Double> buffer;
+  double[] buffer;
+  int bufferIndex;
 
   public Panner(SoundReadable readable, DoubleMap panMap) {
     if (readable.getChannel() != 1) {
@@ -14,7 +13,8 @@ public class Panner implements SoundReadable {
     }
     this.readable = readable;
     this.panMap = panMap;
-    buffer = new ArrayList<>();
+    buffer = new double[2];
+    bufferIndex = 2;
   }
 
   @Override
@@ -29,13 +29,14 @@ public class Panner implements SoundReadable {
 
   @Override
   public double read() {
-    if (buffer.isEmpty()) {
+    if (bufferIndex >= buffer.length) {
       double value = readable.read();
       double pan = panMap.next();
-      buffer.add(value * pan);
-      buffer.add(value * (1.0 - pan));
+      buffer[0] = value * pan;
+      buffer[1] = value * (1.0 - pan);
+      bufferIndex = 0;
     }
-    return buffer.remove(0);
+    return buffer[bufferIndex++];
   }
 
 }

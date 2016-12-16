@@ -1,5 +1,6 @@
 package mocha.sound;
 
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Maximizer implements SoundReadable {
+  public static double MAX_RATIO = 0.95;
 
   SoundReadable readable;
 
@@ -19,7 +21,7 @@ public class Maximizer implements SoundReadable {
     this.readable = readable;
     tempFile = File.createTempFile("maximizer", "");
     System.out.println(tempFile.getAbsolutePath());
-    DataOutputStream out = new DataOutputStream(new FileOutputStream(tempFile));
+    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(tempFile)));
 
     double max = 0;
     long start = System.currentTimeMillis();
@@ -36,7 +38,8 @@ public class Maximizer implements SoundReadable {
     out.flush();
     out.close();
 
-    ratio = max == 0 ? 0 : maxVolume / max;
+    ratio = max == 0 ? 0 : maxVolume / max * MAX_RATIO;
+    System.out.println("maximizer:max=" + max + ":ratio=" + ratio);
     in = new DataInputStream(new FileInputStream(tempFile));
   }
 

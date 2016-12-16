@@ -8,13 +8,18 @@ public abstract class AbstractTimeLine extends TreeMap<Long, ArrayList<SoundRead
   protected long index;
   protected ArrayList<ReadableCounter> reading;
   protected int channel;
-  ArrayList<Double> buffer;
+  double[] buffer;
+  int bufferIndex;
+  long length;
+  boolean lengthUpdated;
 
   public AbstractTimeLine(int channel) {
     this.channel = channel;
     index = 0;
     reading = new ArrayList<>();
-    buffer = new ArrayList<>();
+    buffer = new double[channel];
+    bufferIndex = channel;
+    lengthUpdated = false;
   }
 
   protected abstract SoundReadable formatReadable(SoundReadable readable);
@@ -29,15 +34,19 @@ public abstract class AbstractTimeLine extends TreeMap<Long, ArrayList<SoundRead
       throw new IllegalArgumentException("unexpected channel=" + readable.getChannel());
     }
     get(key).add(formatted);
+    lengthUpdated = false;
   }
 
   @Override
   public long length() {
-    long length = 0;
-    for (long key : keySet()) {
-      for (SoundReadable readable : get(key)) {
-        length = Math.max(length, key * channel + readable.length());
+    if(!lengthUpdated){
+      length = 0;
+      for (long key : keySet()) {
+        for (SoundReadable readable : get(key)) {
+          length = Math.max(length, key * channel + readable.length());
+        }
       }
+      lengthUpdated = true;
     }
     return length;
   }
@@ -49,7 +58,7 @@ public abstract class AbstractTimeLine extends TreeMap<Long, ArrayList<SoundRead
 
   @Override
   public double read() {
-    if (buffer.isEmpty()) {
+    if (bufferIndex >= buffer.length) {
       if (containsKey(index)) {
         for (SoundReadable readable : get(index)) {
           reading.add(new ReadableCounter(readable));
@@ -69,10 +78,11 @@ public abstract class AbstractTimeLine extends TreeMap<Long, ArrayList<SoundRead
         counter.rest -= channel;
       }
       for (int i = 0; i < channel; i++) {
-        buffer.add(values[i]);
+        buffer[i] = values[i];
       }
+      bufferIndex = 0;
     }
-    return buffer.remove(0);
+    return buffer[bufferIndex++];
   }
 
   class ReadableCounter {

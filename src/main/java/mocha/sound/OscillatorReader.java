@@ -8,16 +8,25 @@ public class OscillatorReader implements SoundReadable {
   DoubleMap freqMap;
   DoubleMap envMap;
   double seconds;
+  SoundReadable[] freqModulators;
 
-public OscillatorReader(Oscillatable oscillatable, DoubleMap freqMap, double seconds) {
-  this(oscillatable, freqMap, new DoubleMap(1), seconds);
-}
-public OscillatorReader(Oscillatable oscillatable, DoubleMap freqMap, DoubleMap envMap, double seconds) {
-  this.oscillatable = oscillatable;
-  this.freqMap = freqMap;
-  this.envMap = envMap;
-  this.seconds = seconds;
-}
+  public OscillatorReader(Oscillatable oscillatable, DoubleMap freqMap, double seconds) {
+    this(oscillatable, freqMap, new DoubleMap(1), seconds, new SoundReadable[0]);
+  }
+
+  public OscillatorReader(Oscillatable oscillatable, DoubleMap freqMap, DoubleMap envMap, double seconds) {
+    this(oscillatable, freqMap, envMap, seconds, new SoundReadable[0]);
+  }
+
+  public OscillatorReader(
+    Oscillatable oscillatable, DoubleMap freqMap, DoubleMap envMap, double seconds,
+    SoundReadable[] freqModulators) {
+    this.oscillatable = oscillatable;
+    this.freqMap = freqMap;
+    this.envMap = envMap;
+    this.seconds = seconds;
+    this.freqModulators = freqModulators;
+  }
 
   @Override
   public long length() {
@@ -31,7 +40,11 @@ public OscillatorReader(Oscillatable oscillatable, DoubleMap freqMap, DoubleMap 
 
   @Override
   public double read() {
-    return oscillatable.read(freqMap.next(), 1) * envMap.next();
+    double omega_t = freqMap.next();
+    for (SoundReadable freqModulator : freqModulators) {
+      omega_t += freqModulator.read();
+    }
+    return oscillatable.read(omega_t, 1) * envMap.next();
   }
 
 }

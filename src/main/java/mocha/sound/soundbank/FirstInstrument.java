@@ -41,4 +41,9 @@ public class FirstInstrument implements Instrumental {
     return played;
   }
 
+  @Override
+  public String getName() {
+    return "Simple Keyboard";
+  }
+
 }

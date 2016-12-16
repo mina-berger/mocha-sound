@@ -12,7 +12,7 @@ import mocha.sound.TempoMap;
 import mocha.sound.TimeLine;
 import mocha.sound.TimeSign;
 import mocha.sound.WavFileWriter;
-import mocha.sound.soundbank.FirstInstrument;
+import mocha.sound.soundbank.SecondInstrument;
 
 public class BWV0846Prelude {
 
@@ -23,7 +23,7 @@ public class BWV0846Prelude {
     tempoMap.put(33, 3.75, 15);
     tempoMap.put(34, 0, 20);
     Measures Played = new Measures(new TimeSign(4), tempoMap);
-    Instrumental inst = new FirstInstrument();
+    Instrumental inst = new SecondInstrument();
 
     Player rightHand = new Player(Played, inst);
     Player leftHand = new Player(Played, inst);
