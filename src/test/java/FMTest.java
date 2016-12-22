@@ -43,7 +43,7 @@ public static OscillatorReader getOscillatorReader(double ratio, double amp) {
   DoubleMap freq = new DoubleMap(500);
   DoubleMap env = new DoubleMap(1);
   env.putSecondValue(3, 0);
-  return new OscillatorReader(new SineOscillator(), freq, env, 3, new SoundReadable[]{modulator});
+  return new OscillatorReader(new SineOscillator(), freq, env, new DoubleMap(0), 3, new SoundReadable[]{modulator});
 
 }
 }

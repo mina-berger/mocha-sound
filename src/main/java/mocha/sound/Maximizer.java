@@ -30,7 +30,7 @@ public class Maximizer implements SoundReadable {
       double value = readable.read();
       max = Math.max(max, Math.abs(value));
       out.writeDouble(value);
-      if(i % (SAMPLE_RATE * channel) == 0){
+      if(i % (SAMPLE_RATE * channel * 5) == 0){
         long elapsed = (System.currentTimeMillis() - start) / 1000;
         System.out.println("read " + (i / SAMPLE_RATE / channel) + " sec. (" + elapsed + " sec. elapsed)");
       }

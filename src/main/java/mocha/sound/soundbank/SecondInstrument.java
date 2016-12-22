@@ -46,7 +46,8 @@ public class SecondInstrument implements Instrumental {
     
     DoubleMap freq1 = new DoubleMap(freq);
     DoubleMap env1 = eg1.getEnvelope(duration, velocity);
-    OscillatorReader osc1 = new OscillatorReader(new SineOscillator(), freq1, env1, duration + eg1.getRelease(), new SoundReadable[]{osc2});
+    DoubleMap fb1 = new DoubleMap(0);
+    OscillatorReader osc1 = new OscillatorReader(new SineOscillator(), freq1, env1, fb1, duration + eg1.getRelease(), new SoundReadable[]{osc2});
     played.addReadable(0, osc1);
 
     DoubleMap freq4 = new DoubleMap(freq);
@@ -55,7 +56,8 @@ public class SecondInstrument implements Instrumental {
     
     DoubleMap freq3 = new DoubleMap(freq);
     DoubleMap env3 = eg3.getEnvelope(duration, velocity);
-    OscillatorReader osc3 = new OscillatorReader(new SineOscillator(), freq3, env3, duration + eg3.getRelease(), new SoundReadable[]{osc4});
+    DoubleMap fb3 = new DoubleMap(0);
+    OscillatorReader osc3 = new OscillatorReader(new SineOscillator(), freq3, env3, fb3, duration + eg3.getRelease(), new SoundReadable[]{osc4});
     played.addReadable(0, osc3);
 
     DoubleMap freq6 = new DoubleMap(freq * 1.007);
@@ -64,7 +66,8 @@ public class SecondInstrument implements Instrumental {
     
     DoubleMap freq5 = new DoubleMap(freq * 0.993);
     DoubleMap env5 = eg3.getEnvelope(duration, velocity);
-    OscillatorReader osc5 = new OscillatorReader(new SineOscillator(), freq5, env5, duration + eg3.getRelease(), new SoundReadable[]{osc6});
+    DoubleMap fb5 = new DoubleMap(0);
+    OscillatorReader osc5 = new OscillatorReader(new SineOscillator(), freq5, env5, fb5, duration + eg3.getRelease(), new SoundReadable[]{osc6});
     played.addReadable(0, osc5);
 
     return played;

@@ -15,8 +15,6 @@ public class WavFileWriter extends InputStream implements SoundConstants{
   boolean big_endian = true;
   int sample_size_byte = 2;
 
-  //ArrayList<Byte> list;
-  //ByteBuffer byteBuffer;
   byte[] listBuffer;
   int listBufferIndex;
 
@@ -28,7 +26,6 @@ public class WavFileWriter extends InputStream implements SoundConstants{
 
   public WavFileWriter(SoundReadable readable) throws IOException {
     start = System.currentTimeMillis();
-    //list = new ArrayList<>();
     double volume = Math.pow(2, sample_size_byte * 8 - 1) - 1;
     maximizer = new Maximizer(readable, volume);
     index_start = (long)SAMPLE_RATE * maximizer.getChannel();
@@ -51,14 +48,12 @@ public class WavFileWriter extends InputStream implements SoundConstants{
         value = 0;
       }
       index++;
-      if(index % (SAMPLE_RATE * 2) == 0){
+      if(index % (SAMPLE_RATE * 2 * 5) == 0){
         System.out.println("wrote " + (index / SAMPLE_RATE / 2) + " sec");
       }
       ByteBuffer byteBuffer = ByteBuffer.allocate(8);
       byteBuffer.putLong((long) value);
       byte[] array = byteBuffer.array();
-      //for (int i = 8 - sample_size_byte; i < 8; i++) {
-        //list.add(array[i]);
       for (int i = 0; i < sample_size_byte; i++) {
         listBuffer[i] = array[i - sample_size_byte + 8];
       }
@@ -93,7 +88,4 @@ public class WavFileWriter extends InputStream implements SoundConstants{
 
     System.out.println("wav file  :" + wavFile.getAbsolutePath());
   }
-
-
-
 }

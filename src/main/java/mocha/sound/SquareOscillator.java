@@ -1,24 +1,10 @@
 package mocha.sound;
 
-public class SquareOscillator implements Oscillatable {
-
-  double t;
-  double delta_t;
-
-  public SquareOscillator() {
-    this(SAMPLE_RATE);
-  }
-
-  public SquareOscillator(double sample_rate) {
-    t = 1.0 / sample_rate;
-    delta_t = 0;
-  }
+public class SquareOscillator extends AbstractOscillator {
 
   @Override
-  public double read(double freq, double volume) {
+  public double getAmplitude(double delta_t) {
     double x = delta_t - Math.floor(delta_t);
-    double point = x < 0.5 ? 1 : -1;
-    delta_t += freq * t;
-    return point * volume;
+    return x < 0.5 ? 1 : -1;
   }
 }

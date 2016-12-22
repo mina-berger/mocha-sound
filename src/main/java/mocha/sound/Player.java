@@ -16,6 +16,23 @@ public class Player {
     beat = 0;
   }
 
+  public void play(double[] notes, double duration, double ratio, double velocity, double arpegio) {
+    for(int i = 0;i < notes.length;i++){
+      double gap = 0;
+      if(notes.length > 1){
+        if(arpegio > 0){
+          gap = arpegio / (double)(notes.length - 1) * (double)i;
+        }else{
+          gap = arpegio / (double)(notes.length - 1) * (double)(notes.length - 1 - i);
+        }
+      }
+      double time = measures.getTime(measure, beat + gap);
+      double realDuration = measures.getTime(measure, beat + duration * ratio) - time;
+      played.addReadable(time, inst.play(notes[i], realDuration, velocity));
+    }
+    beat += duration;
+  }
+
   public void play(double note, double duration, double ratio, double velocity) {
     double time = measures.getTime(measure, beat);
     double realDuration = measures.getTime(measure, beat + duration * ratio) - time;
@@ -25,6 +42,10 @@ public class Player {
 
   public void nextMeasure() {
     measure++;
+    beat = 0;
+  }
+  public void setMeasure(int measure) {
+    this.measure = measure;
     beat = 0;
   }
 
