@@ -29,6 +29,9 @@ public void putSecondValue(double second, double value) {
   updated = false;
 }
 
+public double getInitial(){
+  return getValue(0);
+}
   public double next() {
     return getValue(index++);
   }

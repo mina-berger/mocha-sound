@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} mocha-java.com ${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>

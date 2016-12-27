@@ -4,60 +4,62 @@ import java.io.IOException;
 import mocha.sound.DoubleMap;
 import mocha.sound.Instrumental;
 import mocha.sound.Panner;
+import mocha.sound.Played;
 import mocha.sound.TimeLine;
 import mocha.sound.WavFilePlayer;
 import mocha.sound.WavFileWriter;
+import mocha.sound.effect.IIRLowPassFilter;
+import mocha.sound.effect.LowPassFilterModule;
 import mocha.sound.soundbank.FMStrings;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author minaberger
- */
 public class FMStringsTest {
 
   public static void main(String[] args) throws IOException {
     TimeLine tl = new TimeLine();
     Instrumental inst = new FMStrings();
 
-    /*for (int i = 0; i < 2; i++) {
-      tl.addReadable(i * 3, new Panner(inst.play(72, 2.5, ((double) i + 1.0) / 2.0), new DoubleMap(0.5)));
-    }*/
+    Played pl1 = new Played();
+    Played pl2 = new Played();
     int i = 0;
     double duration = 1.5;
-    tl.addReadable(i++ * duration, new Panner(inst.play(78, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(76, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(74, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(73, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(71, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(69, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(71, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(73, duration, 0.6), new DoubleMap(1)));
+    pl1.addReadable(i++ * duration, inst.play(78, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(76, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(74, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(73, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(71, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(69, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(71, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(73, duration, 0.6));
     
-    tl.addReadable(i++ * duration, new Panner(inst.play(74, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(73, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(71, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(69, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(67, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(66, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(67, duration, 0.6), new DoubleMap(1)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(64, duration, 0.6), new DoubleMap(1)));
+    pl1.addReadable(i++ * duration, inst.play(74, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(73, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(71, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(69, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(67, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(66, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(67, duration, 0.6));
+    pl1.addReadable(i++ * duration, inst.play(64, duration, 0.6));
 
     i = 8;
-    tl.addReadable(i++ * duration, new Panner(inst.play(78, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(76, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(74, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(73, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(71, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(69, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(71, duration, 0.6), new DoubleMap(0)));
-    tl.addReadable(i++ * duration, new Panner(inst.play(73, duration, 0.6), new DoubleMap(0)));
+    pl2.addReadable(i++ * duration, inst.play(78, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(76, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(74, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(73, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(71, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(69, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(71, duration, 0.6));
+    pl2.addReadable(i++ * duration, inst.play(73, duration, 0.6));
     
-    WavFileWriter.create(tl, new File("wav/fmstrings.wav"));
-    WavFilePlayer.playFile(new File("wav/fmstrings.wav"));
+    
+    //tl.addReadable(0, new Panner(pl1, new DoubleMap(1)));
+    //tl.addReadable(0, new Panner(pl2, new DoubleMap(0)));
+    
+    DoubleMap cutoff1 = new DoubleMap(2000);
+    DoubleMap cutoff2 = new DoubleMap(2000);
+    tl.addReadable(0, new Panner(new LowPassFilterModule(pl1, cutoff1, new DoubleMap(IIRLowPassFilter.DEFAULT_QUALITY)), new DoubleMap(1)));
+    tl.addReadable(0, new Panner(new LowPassFilterModule(pl2, cutoff2, new DoubleMap(IIRLowPassFilter.DEFAULT_QUALITY)), new DoubleMap(0)));
+  
+    WavFileWriter.create(tl, new File("wav/fmstrings3.wav"));
+    WavFilePlayer.playFile(new File("wav/fmstrings3.wav"));
   }
 }
