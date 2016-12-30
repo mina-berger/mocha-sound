@@ -16,22 +16,22 @@ public class SecondInstrument implements Instrumental {
     env1.putSecondValue(0.01, 1);
     env1.putSecondValue(1.0, 0.75);
     env1.putSecondValue(2.0, 0.0);
-    eg1 = new EnvelopeGenerator(env1, 0.1, 0.2, 1);
+    eg1 = new EnvelopeGenerator(env1, 0.1, 0, 0.2, 1);
     DoubleMap env2 = new DoubleMap(0);
     env2.putSecondValue(0.01, 1);
     env2.putSecondValue(0.6, 0.75);
     env2.putSecondValue(1.5, 0.0);
-    eg2 = new EnvelopeGenerator(env2, 0.1, 0.7, 800);
+    eg2 = new EnvelopeGenerator(env2, 0.1, 0, 0.7, 800);
     DoubleMap env3 = new DoubleMap(0);
     env3.putSecondValue(0.01, 1);
     env3.putSecondValue(1.5, 0.95);
     env3.putSecondValue(3.0, 0.0);
-    eg3 = new EnvelopeGenerator(env3, 0.1, 0.2, 1);
+    eg3 = new EnvelopeGenerator(env3, 0.1, 0, 0.2, 1);
     DoubleMap env4 = new DoubleMap(0);
     env4.putSecondValue(0.01, 1);
     env4.putSecondValue(0.8, 0.95);
     env4.putSecondValue(1.8, 0.0);
-    eg4 = new EnvelopeGenerator(env4, 0.1, 0.6, 1000);
+    eg4 = new EnvelopeGenerator(env4, 0.1, 0, 0.6, 1000);
     
   }
 

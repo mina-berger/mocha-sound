@@ -39,6 +39,9 @@ public class Player {
     played.addReadable(time, inst.play(note, realDuration, velocity));
     beat += duration;
   }
+  public void rest(double duration) {
+    beat += duration;
+  }
 
   public void nextMeasure() {
     measure++;

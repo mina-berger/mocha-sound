@@ -9,8 +9,6 @@ import mocha.sound.SoundReadable;
 import mocha.sound.TimeLine;
 import mocha.sound.WavFilePlayer;
 import mocha.sound.WavFileWriter;
-import mocha.sound.effect.LowPassFilterModule;
-import mocha.sound.effect.IIRLowPassFilter;
 
 public class FMTest {
 

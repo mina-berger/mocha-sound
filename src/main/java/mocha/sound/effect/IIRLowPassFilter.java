@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mocha.sound.effect;
 
 import mocha.sound.DoubleBuffer;
 import static java.lang.Math.PI;
 import mocha.sound.SoundConstants;
 
-/**
- *
- * @author minaberger
- */
 public class IIRLowPassFilter implements SoundConstants {
 
   public static final double DEFAULT_QUALITY = 1.0 / Math.sqrt(2.0);

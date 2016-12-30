@@ -28,13 +28,13 @@ public class LowPassFilterModule implements SoundReadable{
     qualityModulator = null;
   }
 
-  public void setCutoffModulator(Modulator cutoffModulator) {
-    this.cutoffModulator = cutoffModulator;
-  }
+public void setCutoffModulator(Modulator cutoffModulator) {
+  this.cutoffModulator = cutoffModulator;
+}
 
-  public void setQualityModulator(Modulator qualityModulator) {
-    this.qualityModulator = qualityModulator;
-  }
+public void setQualityModulator(Modulator qualityModulator) {
+  this.qualityModulator = qualityModulator;
+}
 
   @Override
   public long length() {
@@ -48,10 +48,10 @@ public class LowPassFilterModule implements SoundReadable{
 
   @Override
   public double read() {
-    double nextCutoff  = cutoffModulator  == null?cutoff .next():cutoffModulator.modulate(cutoff .next());
-    double nextQuality = qualityModulator == null?quality.next():qualityModulator.modulate(quality.next());
+    double nextCutoff = cutoffModulator == null ? cutoff.next() : cutoffModulator.modulate(cutoff.next());
+    double nextQuality = qualityModulator == null ? quality.next() : qualityModulator.modulate(quality.next());
     filter.set(nextCutoff, nextQuality);
-    
+
     return filter.process(source.read());
   }
   
