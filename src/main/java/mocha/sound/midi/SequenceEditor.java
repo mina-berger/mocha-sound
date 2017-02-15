@@ -34,7 +34,7 @@ public SequenceEditor(int trackLength, double initialBeat, double tempo){
   for(int i = 0;i < trackLength;i++){
     trackEditors[i] = new TrackEditor(timeSign, sequence.createTrack(), i);
   }
-  setTempo(0, 0, 65);
+  setTempo(0, 0, tempo);
 }
 public TrackEditor getTrackEditor(int index){
   return trackEditors[index];
